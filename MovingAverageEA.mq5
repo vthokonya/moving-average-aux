@@ -86,7 +86,7 @@ int OnInit()
    //--- Configure trade object
    trade.SetExpertMagicNumber(MagicNumber);
    trade.SetDeviationInPoints(10);
-   trade.SetTypeFilling(ORDER_FILLING_FOK);
+   trade.SetTypeFilling(ORDER_FILLING_RETURN);
 
    //--- Calculate pip/point values
    pointValue = _Point;
@@ -129,11 +129,12 @@ void OnTick()
    if (CopyBuffer(handleMediumMA, 0, 1, 2, mediumMA) < 2) return;
    if (CopyBuffer(handleSlowMA,   0, 1, 2, slowMA)   < 2) return;
 
-   //--- Index 0 = previous bar, index 1 = two bars ago (CopyBuffer fills oldest last)
-   //    We use the last closed bar (index 1 from current) for signal confirmation
-   double fastPrev2   = fastMA[0],   fastPrev   = fastMA[1];
-   double medPrev2    = mediumMA[0], medPrev    = mediumMA[1];
-   double slowPrev2   = slowMA[0],   slowPrev   = slowMA[1];
+   //--- CopyBuffer with start_pos=1, count=2 fills:
+   //      index 0 = bar 1 (most recent completed bar)
+   //      index 1 = bar 2 (two bars ago, the older bar)
+   double fastPrev    = fastMA[0],   fastPrev2   = fastMA[1];
+   double medPrev     = mediumMA[0], medPrev2    = mediumMA[1];
+   double slowPrev    = slowMA[0],   slowPrev2   = slowMA[1];
 
    //--- Determine trend: all 3 MAs must be aligned for a valid trend
    //    Bullish: Fast > Medium > Slow
