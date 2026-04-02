@@ -5,7 +5,7 @@
 //| Optimised for M5 timeframe                                       |
 //+------------------------------------------------------------------+
 #property copyright "moving-average-aux"
-#property version   "1.00"
+#property version   "2.00"
 #property strict
 
 #include <Trade\Trade.mqh>
