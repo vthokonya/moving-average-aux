@@ -129,12 +129,12 @@ void OnTick()
    if (CopyBuffer(handleMediumMA, 0, 1, 2, mediumMA) < 2) return;
    if (CopyBuffer(handleSlowMA,   0, 1, 2, slowMA)   < 2) return;
 
-   //--- CopyBuffer with start_pos=1, count=2 fills:
-   //      index 0 = bar 1 (most recent completed bar)
-   //      index 1 = bar 2 (two bars ago, the older bar)
-   double fastPrev    = fastMA[0],   fastPrev2   = fastMA[1];
-   double medPrev     = mediumMA[0], medPrev2    = mediumMA[1];
-   double slowPrev    = slowMA[0],   slowPrev2   = slowMA[1];
+   //--- CopyBuffer for a non-series (default) array fills oldest-to-newest:
+   //      index 0 = bar 2 (two bars ago, the older bar)
+   //      index 1 = bar 1 (most recent completed bar)
+   double fastPrev2   = fastMA[0],   fastPrev   = fastMA[1];
+   double medPrev2    = mediumMA[0], medPrev    = mediumMA[1];
+   double slowPrev2   = slowMA[0],   slowPrev   = slowMA[1];
 
    //--- Determine trend: all 3 MAs must be aligned for a valid trend
    //    Bullish: Fast > Medium > Slow
